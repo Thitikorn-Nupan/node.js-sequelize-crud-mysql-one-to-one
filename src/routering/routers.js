@@ -1,17 +1,16 @@
 const log = require('../log/logging').log
 
-/* get handler exception */
-const myException = require('../exception/custom-exception')
+const myException = require('../exception/custom-exception') // get handler exception
+const serverService = require('../service/server-service')
+const crudEmployeeService = require('../crud/crud-service').crudEmployee // get object class crud
+const crudLoginService = require('../crud/crud-service').crudLogin // get object class crud
 
-const serviceServer = require('../service/service-server')
-const crudEmployee = require('../crud/service-crud').crudEmployee /* get object class crud */
-const crudLogin = require('../crud/service-crud').crudLogin /* get object class crud */
-/* create router */
-const routerEmployee = serviceServer.buildApp.express.Router()
-const routerLogin = serviceServer.buildApp.express.Router()
+// create routering
+const routerEmployee = serverService.buildApp.express.Router()
+const routerLogin = serverService.buildApp.express.Router()
 
-/* set meddler ware*/
-const bodyParser = serviceServer.buildApp.bodyParser
+// set meddler ware
+const bodyParser = serverService.buildApp.bodyParser
 routerEmployee.use(bodyParser.json())
 routerEmployee.use(bodyParser.urlencoded({extended:true}))
 routerLogin.use(bodyParser.json())
@@ -20,7 +19,7 @@ routerLogin.use(bodyParser.urlencoded({extended:true}))
 
 routerEmployee.get('/reads' , async (req,res) => {
     try {
-        await crudEmployee.reads().then((result) => {
+        await crudEmployeeService.reads().then((result) => {
             return res.status(202).json({
                 status: "accepted",
                 data: result
@@ -37,7 +36,7 @@ routerEmployee.get('/reads' , async (req,res) => {
 
 routerEmployee.get('/read/(:eid)' , async (req,res) => {
     try {
-        await crudEmployee.read(req.params['eid']).then((result) => {
+        await crudEmployeeService.read(req.params['eid']).then((result) => {
             return res.status(202).json({
                 status: "accepted",
                 data: result
@@ -55,7 +54,7 @@ routerEmployee.get('/read/(:eid)' , async (req,res) => {
 routerEmployee.post('/create' , async (req,res) => {
     try {
         const {fullname ,age} = req.body
-        await crudEmployee.create(fullname,age).then((result) => {
+        await crudEmployeeService.create(fullname,age).then((result) => {
             return res.status(201).json({
                 status: "create",
                 data: result
@@ -76,7 +75,7 @@ routerEmployee.post('/create' , async (req,res) => {
 routerEmployee.put('/update/(:eid)' , async (req,res) => {
     try {
         const {fullname ,age} = req.body
-        await crudEmployee.update(req.params['eid'],fullname,age).then((result) => {
+        await crudEmployeeService.update(req.params['eid'],fullname,age).then((result) => {
             return res.status(200).json({
                 status: "ok",
                 data: result
@@ -96,7 +95,7 @@ routerEmployee.put('/update/(:eid)' , async (req,res) => {
 
 routerEmployee.delete('/delete/(:eid)' , async (req,res) => {
     try {
-        await crudEmployee.delete(req.params['eid']).then((result) => {
+        await crudEmployeeService.delete(req.params['eid']).then((result) => {
             return res.status(200).json({
                 status: "ok",
                 data: result
@@ -119,7 +118,7 @@ routerEmployee.delete('/delete/(:eid)' , async (req,res) => {
 routerLogin.post('/create/(:eid)' , async (req,res) => {
     try {
         const {email ,password} = req.body
-        await crudLogin.create(req.params['eid'],email,password).then((result) => {
+        await crudLoginService.create(req.params['eid'],email,password).then((result) => {
             return res.status(201).json({
                 status: "create",
                 data: result
@@ -140,7 +139,7 @@ routerLogin.post('/create/(:eid)' , async (req,res) => {
 
 routerLogin.get('/reads' , async (req,res) => {
     try {
-        await crudLogin.reads().then((result) => {
+        await crudLoginService.reads().then((result) => {
             return res.status(202).json({
                 status: "accepted",
                 data: result
@@ -157,7 +156,7 @@ routerLogin.get('/reads' , async (req,res) => {
 
 routerLogin.get('/read/(:eid)' , async (req,res) => {
     try {
-        await crudLogin.read(req.params['eid']).then((result) => {
+        await crudLoginService.read(req.params['eid']).then((result) => {
             return res.status(202).json({
                 status: "accepted",
                 data: result
@@ -175,7 +174,7 @@ routerLogin.get('/read/(:eid)' , async (req,res) => {
 routerLogin.put('/update/(:eid)' , async (req,res) => {
     try {
         const {email,password} = req.body
-        await crudLogin.update(req.params['eid'],email,password).then((result) => {
+        await crudLoginService.update(req.params['eid'],email,password).then((result) => {
             return res.status(200).json({
                 status: "ok",
                 data: result
@@ -195,7 +194,7 @@ routerLogin.put('/update/(:eid)' , async (req,res) => {
 
 routerLogin.delete('/delete/(:eid)' , async (req,res) => {
     try {
-        await crudLogin.delete(req.params['eid']).then((result) => {
+        await crudLoginService.delete(req.params['eid']).then((result) => {
             return res.status(200).json({
                 status: "ok",
                 data: result
@@ -214,7 +213,7 @@ routerLogin.delete('/delete/(:eid)' , async (req,res) => {
 })
 
 module.exports = {
-    routerEmployee ,
+    routerEmployee: routerEmployee ,
     routerLogin
 }
 

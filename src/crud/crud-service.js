@@ -1,12 +1,12 @@
 module.exports = crud = {}
 const Employee = require('../entities/employee')
 const Login = require('../entities/login')
-
 Employee.hasOne(Login , { foreignKey : 'eid' })
 Login.belongsTo(Employee , { foreignKey : 'eid' })
-Login.removeAttribute('id') /* removed created column id auto */
-class ServiceCrudEmployee {
-    /* these are function */
+Login.removeAttribute('id') // removed created column id auto
+
+class CrudEmployeeService {
+    // these are functions
     reads = async () => { /* reads direct left join */
         return await Employee.findAll({
             include : [{
@@ -61,7 +61,7 @@ class ServiceCrudEmployee {
 
 }
 
-class ServiceCrudLogin {
+class CrudLoginService {
     create = async (eid,email,password) => {
         return await Employee.findByPk(eid).then( async () => {
             return  await Login.create({eid,email,password})
@@ -97,6 +97,6 @@ class ServiceCrudLogin {
     }
 }
 
-crud.crudEmployee = new ServiceCrudEmployee() // add object class to object crud
-crud.crudLogin = new ServiceCrudLogin()
+crud.crudEmployee = new CrudEmployeeService() // add object class to object crud
+crud.crudLogin = new CrudLoginService()
 module.exports = crud

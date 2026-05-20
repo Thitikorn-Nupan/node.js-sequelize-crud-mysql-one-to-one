@@ -1,9 +1,13 @@
-const config = require('../config/config-database')
+const config = require('../config/database-config')
 const configSequel = config.sequelizeConfig
 const { DataTypes } = config.sequelize
-/* build entity by sequelize */
-const Login = configSequel.define(
-    'login' , {
+const Login = configSequel.define( // build entity by sequelize
+    'login_employees_4' , {
+        id : {
+            type : DataTypes.INTEGER ,
+            primaryKey : true,
+            autoIncrement: true
+        },
         email : {
             type: DataTypes.STRING
         } ,
@@ -13,15 +17,13 @@ const Login = configSequel.define(
         eid : {
             type : DataTypes.INTEGER ,
             references : { //  setting foreign key
-                model : 'employee',
+                model : 'employees_4',
                 key : 'eid'
             }}
     } ,
     {
-        // freeze name table not using *s on name
-        freezeTableName: true ,
-        // don't use createdAt/update
-        timestamps: false
+        freezeTableName: true , // freeze name table not using *s on name
+        timestamps: false // don't use createdAt/update
     }
 )
 

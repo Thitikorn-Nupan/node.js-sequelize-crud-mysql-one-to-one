@@ -1,9 +1,8 @@
-const config = require('../config/config-database')
+const config = require('../config/database-config')
 const configSequel = config.sequelizeConfig
 const { DataTypes } = config.sequelize
-/* build entity by sequelize */
-const Employee = configSequel.define(
-    'employee' , {
+const Employee = configSequel.define( // build entity by sequelize
+    'employees_4' , {
         eid : {
             type : DataTypes.INTEGER ,
             primaryKey : true,
@@ -17,10 +16,8 @@ const Employee = configSequel.define(
         }
     } ,
     {
-        // freeze name table not using *s on name
-        freezeTableName: true ,
-        // don't use createdAt/update
-        timestamps: false
+        freezeTableName: true , // freeze name table not using *s on name
+        timestamps: false // don't use createdAt/update
     }
 )
 

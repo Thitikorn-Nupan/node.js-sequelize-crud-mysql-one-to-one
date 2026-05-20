@@ -1,8 +1,9 @@
-const path = require('../service/service-server').path
-/* declare log object for exporting method */
-module.exports = myLogging = {}
+const path = require('../service/server-service').path
+module.exports = myLogging = {} // declare log object for exporting method
 /* This class for logging on console */
+
 class Logging {
+
     get winston () {
         const {createLogger , format , transports} = require('winston')
         return {createLogger , format , transports}
@@ -22,11 +23,6 @@ class Logging {
 }
 
 const logging = new Logging()
-
-myLogging.log = logging.log // add method to object
-/*
-    seems to
-    log : get log()
-*/
+myLogging.log = logging.log // add function to object
 
 module.exports = myLogging
