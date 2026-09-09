@@ -1,6 +1,7 @@
-module.exports = crud = {}
 const Employee = require('../entities/employee')
 const Login = require('../entities/login')
+
+module.exports = crud = {}
 Employee.hasOne(Login , { foreignKey : 'eid' })
 Login.belongsTo(Employee , { foreignKey : 'eid' })
 Login.removeAttribute('id') // removed created column id auto

@@ -1,11 +1,11 @@
 const dotenv = require('dotenv')
-const path = require('../service/server-service').path
+const path = require('../services/server-service').path
 const log = require('../log/logging').log
-dotenv.config({path: path.resolve('../env/.env')})
+
+dotenv.config({path: path.resolve('env/.env')})
 module.exports = config = {} // declare empty object
 
 class DatabaseConfig {
-
     constructor() {
         log.silly('DatabaseConfig constructor is using')
     }
@@ -35,8 +35,8 @@ class DatabaseConfig {
     }
 }
 
-//  check config , it was done or not
-/*new DatabaseConfig().sequelizeConfig.authenticate().then(() => {
+//  check config , it was done or not {path: path.resolve('env/.env')})
+/**new DatabaseConfig().sequelizeConfig.authenticate().then(() => {
     log.info('connected successfully!!')
 }).catch((error) => {
     log.warn('message : failed connect!!')

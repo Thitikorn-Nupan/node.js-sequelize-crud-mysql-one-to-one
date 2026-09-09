@@ -1,9 +1,9 @@
 const log = require('../log/logging').log
 
 const myException = require('../exception/custom-exception') // get handler exception
-const serverService = require('../service/server-service')
-const crudEmployeeService = require('../crud/crud-service').crudEmployee // get object class crud
-const crudLoginService = require('../crud/crud-service').crudLogin // get object class crud
+const serverService = require('../services/server-service')
+const crudEmployeeService = require('../services/crud-service').crudEmployee // get object class crud
+const crudLoginService = require('../services/crud-service').crudLogin // get object class crud
 
 // create routering
 const routerEmployee = serverService.buildApp.express.Router()

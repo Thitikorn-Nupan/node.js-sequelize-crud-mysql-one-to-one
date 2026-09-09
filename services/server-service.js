@@ -1,4 +1,5 @@
 module.exports = serviceServer = {} // declare serviceServer object for exporting methods
+
 class ServerService {
     get path () {
         return require('path')

@@ -1,5 +1,5 @@
 const log = require('../log/logging').log
-const runner = require('../service/server-service').buildApp.express()
+const runner = require('../services/server-service').buildApp.express()
 const routers = require('../routering/routers')
 
 runner.use('/api/employee' , routers.routerEmployee)
