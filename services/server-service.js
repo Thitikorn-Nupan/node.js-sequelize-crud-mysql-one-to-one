@@ -5,8 +5,7 @@ class ServerService {
         return require('path')
     }
     get buildApp () {
-        return {
-            /* return object */
+        return { // return object
             express : require('express') ,
             bodyParser : require('body-parser')
         }

@@ -1,13 +1,18 @@
 const dotenv = require('dotenv')
 const path = require('../services/server-service').path
-const log = require('../log/logging').log
+const {createLogger} = require('../log/logging-v2')
+
+const filename = path.basename(__filename);
+const log = createLogger(filename);
 
 dotenv.config({path: path.resolve('env/.env')})
+
 module.exports = config = {} // declare empty object
+// now you have config = { ... }
 
 class DatabaseConfig {
     constructor() {
-        log.silly('DatabaseConfig constructor is using')
+        log.emerg('DatabaseConfig constructor is using')
     }
 
     get sequelize() {
@@ -36,12 +41,14 @@ class DatabaseConfig {
 }
 
 //  check config , it was done or not {path: path.resolve('env/.env')})
-/**new DatabaseConfig().sequelizeConfig.authenticate().then(() => {
+/**
+new DatabaseConfig().sequelizeConfig.authenticate().then(() => {
     log.info('connected successfully!!')
 }).catch((error) => {
     log.warn('message : failed connect!!')
     throw error
-})*/
+})
+*/
 
 const configSequel = new DatabaseConfig()
 // add object to config

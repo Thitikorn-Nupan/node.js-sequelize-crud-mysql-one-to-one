@@ -1,9 +1,13 @@
-const log = require('../log/logging').log
-
+const path = require('../services/server-service').path
+const {createLogger} = require('../log/logging-v2')
 const myException = require('../exception/custom-exception') // get handler exception
 const serverService = require('../services/server-service')
 const crudEmployeeService = require('../services/crud-service').crudEmployee // get object class crud
 const crudLoginService = require('../services/crud-service').crudLogin // get object class crud
+
+//
+const filename = path.basename(__filename);
+const log = createLogger(filename);
 
 // create routering
 const routerEmployee = serverService.buildApp.express.Router()

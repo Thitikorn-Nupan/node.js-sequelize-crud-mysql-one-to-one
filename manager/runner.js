@@ -1,6 +1,10 @@
-const log = require('../log/logging').log
+const {createLogger} = require('../log/logging-v2')
+const path = require('../services/server-service').path
 const runner = require('../services/server-service').buildApp.express()
 const routers = require('../routering/routers')
+
+const filename = path.basename(__filename);
+const log = createLogger(filename);
 
 runner.use('/api/employee' , routers.routerEmployee)
 runner.use('/api/login' , routers.routerLogin)
